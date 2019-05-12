@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fairfax QA - Photo-World</title>
+    @*@Styles.Render("~/Content/css")*@
+
+    <link href=@Url.Content("~/Content/bootstrap.min.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/bootswatch/cerulean/bootstrap.min.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/custom.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/Site.css") rel="stylesheet" />
+    <link href=@Url.Content("~/Content/jquery.fancybox.css") rel="stylesheet" />
+
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src=@Url.Content("~/Scripts/Common.js")></script>
+    <link rel="stylesheet" href="http://css-spinners.com/css/spinner/dots.css" type="text/css">
+
+    <style>
+        /* unvisited link */
+        a.lnkbottom:link, a.lnkbottom:visited {
+            color: rgba(255,255,255,0.4);
+        }
+        /* mouse over link */
+        a.lnkbottom:hover {
+            color: rgba(255,255,255,1);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="row">
+            <form class="form-inline">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div><a href="~/"><img src=@Url.Content("~/Images/logo.png") width="200" height="60" /></a></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-inline">
+                        <a href="https://www.facebook.com/Fairfax-QA-1596487670600014/?fref=ts" target="_blank"><img width="38" class="img-circle" height="38" src="~/Images/fb.png" /></a>
+                        <img width="38" class="img-circle" height="38" src=@Url.Content("~/Images/gl.png") />
+                        <img width="38" class="img-circle" height="38" src=@Url.Content("~/Images/kr.png") />
+                        <img width="38" class="img-circle" height="38" src=@Url.Content("~/Images/tw.png") />
+                        <img width="38" class="img-circle" height="38" src=@Url.Content("~/Images/yt.png") />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div style="color:darkgrey" class="col-md-1 glyphicon glyphicon-user"></div>
+                        <div class="col-md-1"><a href=@(Session["FullName"] == null && Session["isAdmin"] == null ?Url.Content("~/Auth/ViewLogin") : Url.Content("~/Common/Logout"))>@(Session["FullName"] == null && Session["isAdmin"] == null ? "login" : "logout")</a></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-1 glyphicon glyphicon-user"></div>
+                        <div class="col-md-1"><a href="~/Auth/ViewRegister">Register</a></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a href="#"></a>
+                        </div>
+
+                        <ul class="nav navbar-nav">
+                            <li><a href="~/"><div class="glyphicon glyphicon-home"></div> Home</a></li>
+                            <li><a href="~/Common/ViewGallery"><div class="glyphicon glyphicon-picture"></div> Gallery</a></li>
+                            <li><a href="~/Common/ViewContactUs"><div class="glyphicon glyphicon-envelope"></div> Contact Us</a></li>
+                            <li><a href="~/Common/ViewAboutUs"><div class="glyphicon glyphicon-camera"></div> About Us</a></li>
+                        </ul>
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" id="txtSimpleSearch" class="form-control" placeholder="Search">
+                            </div>
+                            <a id="btnSimpleSearch" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;Search</a>
+                        </form>
+                        <div>
+                            <form class="navbar-form navbar-left" role="search">
+                                <a href="~/Common/ViewAdvancedSearch" class="btn btn-primary" style="border-color:#99c6eb"><i style="color:white;" class="glyphicon glyphicon-search active"></i>&nbsp;Advanced Search</a>
+                            </form>
+                        </div>
+                        <div class="navbar-right">
+                            <div style="color:#ffffff; margin-top:15px; margin-right:5px">
+                                @if (Session["EmailAddress"] != null)
+                                {
+                                    if (Session["isAdmin"] != null)
+                                    { @Html.ActionLink("Hello! " + Session["FullName"].ToString(), "Admin", new { controller = "Gallery", action = "Admin" }, new { @style = "color:#ffffff" });
+                                    }
+                                    else
+                                    {@("Hello! " + Session["FullName"].ToString());
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <!--/.nav-collapse -->
+                    </div>
+                </nav>
+            </div>
+
+
+        </div>
+
+        <div class="container ">
+            <div id="main" class="container-fluid drop-shadow" style="margin-bottom:50px">
+                @RenderBody()
+            </div>
+        </div>
+        <div id="pluswrap" style="display:none;">
+            <div class="dots-loader plus">
+                Loading…
+            </div>
+        </div>
+
+        <div id="footer" class="container-fluid">
+            <br />
+            <div class="navbar navbar-fixed-bottom">
+                <h4 style="color:white; font-size:15px;vertical-align:baseline" class="text-center">&copy; @DateTime.Now.Year Fairfax QA Photo-World Ltd.</h4>
+                <h5 style="color:rgba(255,255,255,0.2);vertical-align:baseline" class="text-center">
+                    Developed by <a class="lnkbottom" href="#" onclick="window.open('http://www.yasserblog.com/'); window.open('http://fairfaxqa.blogspot.com/');">Yaseer Mumtaz</a>
+                </h5>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if (window.location.pathname == "/" || window.location.pathname == "/Home/Index")
+                $("#main").removeClass("drop-shadow");
+            var url = window.location;
+            // Will only work if string in href matches with location
+            $('ul.nav a[href="' + url + '"]').parent().addClass('active');
+
+            // Will also work for relative and absolute hrefs
+            $('ul.nav a').filter(function () {
+                return this.href == url;
+            }).parent().addClass('active');
+
+            $("#btnSimpleSearch").click(function () {
+                window.location.href = "/Common/ViewSimpleSearch/" + $("#txtSimpleSearch").val();
+            })
+
+        });
+
+    </script>
+</body>
+</html>

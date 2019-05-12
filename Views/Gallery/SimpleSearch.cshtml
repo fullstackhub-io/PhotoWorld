@@ -1,0 +1,11 @@
+﻿@model IList<JoeFurnitureStore.DBContext.Picture>
+<div>
+    <div class="well well-sm"><h2>Simple Search Result</h2></div>
+    <div>
+        <p class="text-info">Following is the result for your <b> "@ViewBag.SearchString"</b> search text.</p>
+    </div>
+    <br />
+    <div>
+        @Html.Partial("_ImageGallery", Model)
+    </div>
+</div>

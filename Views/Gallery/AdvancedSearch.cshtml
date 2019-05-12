@@ -1,0 +1,10 @@
+﻿@model JoeFurnitureStore.Models.SearchFilter
+@{ViewBag.Title = "Gallery";}
+<div>
+    <div class="well well-sm"><h2>Advanced Search</h2></div>
+    <div>
+        @Html.Partial("_SearchFilter", Model)
+    </div>
+    <div id="divLoadGallery">
+    </div>
+</div>

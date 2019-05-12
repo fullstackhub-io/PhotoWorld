@@ -1,0 +1,101 @@
+﻿@model JoeFurnitureStore.DBContext.Picture
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="well well-sm"><h2>Edit Picture</h2></div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.PictureID)
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.GalleryID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("GalleryID", String.Empty)
+                @Html.ValidationMessageFor(model => model.GalleryID)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PictureName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PictureName, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PictureName), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PictureName)
+            </div>
+        </div>
+
+        <div style="display:none" class="form-group row">
+            @Html.LabelFor(model => model.PicturePath, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PicturePath, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PicturePath), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PicturePath)
+            </div>
+        </div>
+
+        <div style="display:none" class="form-group row">
+            @Html.LabelFor(model => model.PictureSizeW, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PictureSizeW, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PictureSizeW), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PictureSizeW)
+            </div>
+        </div>
+
+        <div style="display:none" class="form-group row">
+            @Html.LabelFor(model => model.PictureSizeH, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PictureSizeH, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PictureSizeH), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PictureSizeH)
+            </div>
+        </div>
+
+        <div style="display:none"  class="form-group row">
+            @Html.LabelFor(model => model.PictureSizeMB, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PictureSizeMB, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PictureSizeMB), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PictureSizeMB)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Price, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Price, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.Price), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Price)
+            </div>
+        </div>
+
+        @*<div class="form-group row">
+            @Html.LabelFor(model => model.DateAdded, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateAdded)
+                @Html.ValidationMessageFor(model => model.DateAdded)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.DateUpdated, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateUpdated)
+                @Html.ValidationMessageFor(model => model.DateUpdated)
+            </div>
+        </div>*@
+
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a href="../Index" class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

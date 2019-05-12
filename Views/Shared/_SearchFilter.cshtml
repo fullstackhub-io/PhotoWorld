@@ -1,0 +1,90 @@
+﻿@model JoeFurnitureStore.Models.SearchFilter
+
+@using (Ajax.BeginForm("AdvancedSearchResult", "Common",
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "divLoadGallery"
+            }))
+{
+
+    <div class="form-group">
+        @Html.ValidationSummary(true)
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PictureName, new { @class = "control-label col-md-2" })
+            <div class="orm-group-sm col-md-10">
+                @Html.TextBoxFor(model => model.PictureName, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PictureName), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PictureName)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PictureSizeW, new { @class = "control-label col-md-2" })
+            <div class="orm-group-sm col-md-10">
+                @Html.TextBoxFor(model => model.PictureSizeW, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PictureSizeW), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PictureSizeW)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PictureSizeH, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PictureSizeH, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.PictureSizeH), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PictureSizeH)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Price, new { @class = "control-label col-md-2" })
+            <div class="orm-group-sm col-md-10">
+                @Html.TextBoxFor(model => model.Price, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.Price), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Price)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.GalleryTypeName, new { @class = "control-label col-md-2" })
+            <div class="orm-group-sm col-md-10">
+                @Html.DropDownListFor(m => m.SelectedGalleryTypeID, Model.GalleryTypeList, new {@id = "ddlgallerytype", placeholder = "Enter " + @Html.DisplayNameFor(model => model.GalleryTypeName), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GalleryTypeName)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.GalleryName, new { @class = "control-label col-md-2" })
+            <div class="orm-group-sm col-md-10">
+                @Html.DropDownListFor(m => m.SelectedGalleryID, Model.GalleryList, new { @id = "ddlgallery", placeholder = "Enter your full " + @Html.DisplayNameFor(model => model.GalleryName), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GalleryName)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <input onclick="$(this).resetValidation()" class="btn btn-default" type="reset" value="Reset" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnSumbitGallery").submit();
+        $("select#ddlgallerytype").change(function (event) {
+            $.getJSON("GetGalleryList/" + $(this).val(), function (result) {
+                var options = $("select#ddlgallery");
+                options.empty();
+                $(result).each(function () {
+                    $(document.createElement('option'))
+                        .attr('Value', this.Value)
+                        .text(this.Text)
+                        .appendTo(options);
+                });
+            });
+        })
+    });
+
+</script>

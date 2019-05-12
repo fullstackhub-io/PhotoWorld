@@ -1,0 +1,57 @@
+﻿@model JoeFurnitureStore.DBContext.Gallery
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well well-sm"><h2>Edit Gallery</h2></div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.GalleryID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GalleryTypeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("GalleryTypeID", String.Empty)
+                @Html.ValidationMessageFor(model => model.GalleryTypeID)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.DateAdded, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DateAdded, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.DateAdded), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DateAdded)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateUpdated, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DateUpdated, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.DateUpdated), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DateUpdated)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GalleryName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.GalleryName, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.GalleryName), @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GalleryName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a href="../Index" class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+    </div>
+}

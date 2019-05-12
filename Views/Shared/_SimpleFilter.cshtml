@@ -1,0 +1,19 @@
+﻿@model JoeFurnitureStore.Models.SimpleSearch
+
+<div>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.GalleryTypeName, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Label(m => m.GalleryTypeName)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.GalleryName, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Label(model => model.GalleryName)
+        </div>
+    </div>
+</div>

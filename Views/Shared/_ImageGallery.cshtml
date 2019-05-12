@@ -1,0 +1,143 @@
+﻿@model IList<JoeFurnitureStore.DBContext.Picture>
+
+<script src=@Url.Content("~/Scripts/Fancybox/lib/jquery-1.10.1.min.js")></script>
+<script src=@Url.Content("~/Scripts/Fancybox/lib/jquery.mousewheel-3.0.6.pack.js")></script>
+<script src=@Url.Content("~/Scripts/Fancybox/source/jquery.fancybox.js?v=2.1.5")></script>
+<script src=@Url.Content("~/Scripts/Fancybox/source/jquery.fancybox.pack.js")></script>
+<link href=@Url.Content("~/Scripts/Fancybox/source/jquery.fancybox.css?v=2.1.5") rel="stylesheet" />
+<link href=@Url.Content("~/Scripts/Fancybox/source/helpers/jquery.fancybox-buttons.css") rel="stylesheet" />
+<script src=@Url.Content("~/Scripts/Fancybox/source/helpers/jquery.fancybox-buttons.js")></script>
+<script src=@Url.Content("~/Scripts/Fancybox/source/helpers/jquery.fancybox-media.js")></script>
+<link href=@Url.Content("~/Scripts/Fancybox/source/helpers/jquery.fancybox-thumbs.css") rel="stylesheet" />
+<script src=@Url.Content("~/Scripts/Fancybox/source/helpers/jquery.fancybox-thumbs.js")></script>
+<script src=@Url.Content("~/Scripts/Fancybox/lib/jquery.livequery.min.js")></script>
+<script src=@Url.Content("~/Scripts/bootstrap.min.js")></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".fancybox").livequery(function () {
+            $(".fancybox").fancybox({
+                'width': '100%',
+                'height': '100%',
+                'fitToView': true,
+                'autoSize': true,
+                'transitionIn': 'elastic',
+                'transitionOut': 'elastic',
+                'speedIn': 100,
+                'speedOut': 300,
+                'type': 'iframe',
+
+
+                beforeShow: function () {
+                    // added 50px to avoid scrollbars inside fancybox
+                    this.width = 600;// $(".imgBox").width;// ($('.fancybox-iframe').contents().find('html').width());
+                    this.height = 500;// $(".imgBox").height;// ($('.fancybox-iframe').contents().find('html').height());
+                }
+            });
+        });
+        $('.fancybox-media')
+            .attr('rel', 'media-gallery')
+            .fancybox({
+                openEffect: 'none',
+                closeEffect: 'none',
+                prevEffect: 'none',
+                nextEffect: 'none',
+
+                arrows: false,
+                helpers: {
+                    media: {},
+                    buttons: {}
+                }
+            });
+
+    });
+</script>
+<style type="text/css">
+    .imgBox {
+        width: 200px;
+        height: 150px;
+        opacity: 1.0;
+        filter: alpha(opacity=100);
+    }
+
+    .fancybox-custom .fancybox-skin {
+        box-shadow: 0 0 50px #222;
+    }
+</style>
+<div id="popup"></div>
+<div id="divmaingallery" class="jumbotron container-fluid" style="margin-top:30px">
+    @if (Model != null && Model.Count > 0)
+    { <div class="row-fluid text-center">
+        <div>
+            <div>
+                @foreach (var image in Model)
+                {
+                    <div class="col-md-3">
+                        <div>
+                            <a class="fancybox" data-fancybox-group="gallery"
+                               title="@image.PictureName" href="@Url.Content("~/Pictures/"+Path.GetFileName(image.PicturePath))">
+                                <div class="zoom">
+                                    <img src="@Url.Content(image.PicturePath)" class="imgBox img-rounded" />
+                                    <div class="zoom-icon"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="text-info small" style="margin-bottom:25px">
+                            <div>
+                                Picture Name:  @image.PictureName
+                            </div>
+                            <div>Size: @image.PictureSizeW X @image.PictureSizeH</div>
+                            <div><button onclick="ViewDownloadPopUp(@image.PictureID)" class="btn btn-success btn-sm small"><i class="glyphicon glyphicon-download-alt"></i> Download</button></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+  <!-- Modal -->
+        <div class="modal fade" id="DownloadModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" style="color:#fff; font-weight:bold" id="myModalLabel">Photo-World Download Picture</h4>
+                    </div>
+                    <div class="modal-body" id="getCode">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">There is no image found.</div>
+    }
+</div>
+
+<script type="text/javascript">
+
+    function ViewDownloadPopUp(id) {
+
+        $.ajax({
+            url: "/Common/ShowDownloadImage/" + id,
+            type: 'GET',
+            success: function (data) {
+                $("#getCode").html(data);
+                $("#DownloadModel").modal("show");
+            }
+        });
+    }
+
+    function DownloadPicture(id) {
+        window.location = '/Common/DownloadImage?id=' + id;
+    }
+
+</script>

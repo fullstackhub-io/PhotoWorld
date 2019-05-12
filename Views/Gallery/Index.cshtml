@@ -1,0 +1,59 @@
+﻿@model IEnumerable<JoeFurnitureStore.DBContext.Gallery>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well well-sm"><h2>Galleries List</h2></div>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (Model != null && Model.Count() > 0)
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GalleryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GalleryType.GalleryTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GalleryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GalleryType.GalleryTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAdded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GalleryID }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.GalleryID }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.GalleryID })
+        </td>
+    </tr>
+}
+
+</table>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">There is no record found.</div>
+}

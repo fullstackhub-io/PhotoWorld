@@ -1,0 +1,116 @@
+﻿@model JoeFurnitureStore.DBContext.User
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="well well-sm"><h2>Register</h2></div>
+
+@using (
+
+   // Html.BeginForm("RegisterUser", "Common", FormMethod.Post, new { enctype = "multipart/form-data" })
+
+      Ajax.BeginForm("RegisterUser", "Common",
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                // UpdateTargetId = "divLoadGallery",
+                OnComplete = "ShowResult"
+            })
+
+    )
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                @Html.ValidationSummary(true)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmailAddress, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-offset-2">
+                        @Html.TextBoxFor(model => model.EmailAddress, new { placeholder = "Enter your " + @Html.DisplayNameFor(model => model.EmailAddress), @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EmailAddress)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-offset-2">
+                        @Html.TextBoxFor(model => model.FirstName, new { placeholder = "Enter your " + @Html.DisplayNameFor(model => model.FirstName), @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MiddleName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-offset-2">
+                        @Html.TextBoxFor(model => model.MiddleName, new { placeholder = "Enter your " + @Html.DisplayNameFor(model => model.MiddleName), @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MiddleName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-offset-2">
+                        @Html.TextBoxFor(model => model.LastName, new { placeholder = "Enter your " + @Html.DisplayNameFor(model => model.LastName), @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-offset-2">
+                        @Html.PasswordFor(model => model.Password, new { placeholder = "Enter your " + @Html.DisplayNameFor(model => model.Password), @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-offset-2">
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Enter your " + @Html.DisplayNameFor(model => model.ConfirmPassword), @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Register" class="btn btn-success" />
+                        <input onclick="$(this).resetValidation()" class="btn btn-default" type="reset" value="Reset" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br />
+
+     <!-- Modal -->
+    <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color:#fff; font-weight:bold" id="myModalLabel">Photo-World Register</h4>
+                </div>
+                <div class="modal-body" id="getCode">
+                    @Html.Raw(ViewBag.Message)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+
+    function ShowResult(data) {
+
+        $("#getCode").html(data.responseText);
+        $("#getCodeModal").modal('show');
+    }
+</script>
