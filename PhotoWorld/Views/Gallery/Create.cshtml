@@ -1,0 +1,43 @@
+﻿@model JoeFurnitureStore.DBContext.Gallery
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well well-sm"><h2>Create New Gallery</h2></div>
+
+@using (Html.BeginForm("Create",
+                        "Gallery",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+  
+        <div class="form-group">
+            @Html.ValidationSummary(true)
+
+            <div class="form-group row">
+                @Html.LabelFor(model => model.GalleryTypeID, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("GalleryTypeID", String.Empty)
+                    @Html.ValidationMessageFor(model => model.GalleryTypeID)
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.GalleryName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.GalleryName, new { placeholder = "Enter " + @Html.DisplayNameFor(model => model.GalleryName), @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.GalleryName)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a href="Index" class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+
+        </div>
+ 
+}

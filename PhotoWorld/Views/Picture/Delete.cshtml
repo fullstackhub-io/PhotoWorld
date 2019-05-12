@@ -1,0 +1,86 @@
+﻿@model JoeFurnitureStore.DBContext.Picture
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="well well-sm"><h2>Delete Gallery Type</h2></div>
+<div class="alert alert-danger" role="alert"><h4>Are you sure you want to delete this?</h4></div>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PictureName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PictureName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PicturePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PicturePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PictureSizeW)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PictureSizeW)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PictureSizeH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PictureSizeH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PictureSizeMB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PictureSizeMB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+
+    </dl>
+
+   @using (Html.BeginForm())
+   {
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-offset-2 form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a href="../Index" class="btn btn-default">Cancel</a>
+    </div>
+   }
+</div>
